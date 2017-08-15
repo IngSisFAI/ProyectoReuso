@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "conexionMyqsl": {
+    "host": "localhost",
+    "port": 3306,
+    "url": "",
+    "database": "taxonomia",
+    "password": "macarena",
+    "name": "conexionMyqsl",
+    "user": "root",
+    "connector": "mysql"
+  }
+}
