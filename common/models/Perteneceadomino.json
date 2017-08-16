@@ -1,0 +1,56 @@
+{
+  "name": "Perteneceadomino",
+  "options": {
+    "idInjection": false,
+    "mysql": {
+      "schema": "taxonomia",
+      "table": "perteneceADomino"
+    },
+    "relations": {
+      "perteneceadominoIbfk1rel": {
+        "model": "Categoria",
+        "type": "belongsTo",
+        "foreignKey": "codigo"
+      },
+      "perteneceadominoIbfk2rel": {
+        "model": "Domino",
+        "type": "belongsTo",
+        "foreignKey": "iddominio"
+      }
+    }
+  },
+  "properties": {
+    "codigo": {
+      "type": "String",
+      "required": true,
+      "length": 20,
+      "precision": null,
+      "scale": null,
+      "id": 1,
+      "mysql": {
+        "columnName": "codigo",
+        "dataType": "varchar",
+        "dataLength": 20,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "N"
+      }
+    },
+    "iddominio": {
+      "type": "Number",
+      "required": true,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "id": 2,
+      "mysql": {
+        "columnName": "idDominio",
+        "dataType": "tinyint",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "N"
+      }
+    }
+  }
+}

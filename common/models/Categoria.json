@@ -1,0 +1,65 @@
+{
+  "name": "Categoria",
+  "options": {
+    "idInjection": false,
+    "mysql": {
+      "schema": "taxonomia",
+      "table": "categoria"
+    },
+    "relations": {
+      "categoriaIbfk1rel": {
+        "model": "Categoria",
+        "type": "belongsTo",
+        "foreignKey": "categoriasuperior"
+      }
+    }
+  },
+  "properties": {
+    "codigo": {
+      "type": "String",
+      "required": true,
+      "length": 20,
+      "precision": null,
+      "scale": null,
+      "id": 1,
+      "mysql": {
+        "columnName": "codigo",
+        "dataType": "varchar",
+        "dataLength": 20,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "N"
+      }
+    },
+    "descripcion": {
+      "type": "String",
+      "required": false,
+      "length": 255,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "descripcion",
+        "dataType": "varchar",
+        "dataLength": 255,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      }
+    },
+    "categoriasuperior": {
+      "type": "String",
+      "required": false,
+      "length": 20,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "categoriasuperior",
+        "dataType": "varchar",
+        "dataLength": 20,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      }
+    }
+  }
+}

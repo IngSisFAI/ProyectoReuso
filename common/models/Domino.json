@@ -1,0 +1,65 @@
+{
+  "name": "Domino",
+  "options": {
+    "idInjection": false,
+    "mysql": {
+      "schema": "taxonomia",
+      "table": "domino"
+    },
+    "relations": {
+      "dominoIbfk1rel": {
+        "model": "Domino",
+        "type": "belongsTo",
+        "foreignKey": "iddominiosuperior"
+      }
+    }
+  },
+  "properties": {
+    "iddominio": {
+      "type": "Number",
+      "required": true,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "id": 1,
+      "mysql": {
+        "columnName": "idDominio",
+        "dataType": "tinyint",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "N"
+      }
+    },
+    "descripcion": {
+      "type": "String",
+      "required": false,
+      "length": 255,
+      "precision": null,
+      "scale": null,
+      "mysql": {
+        "columnName": "descripcion",
+        "dataType": "varchar",
+        "dataLength": 255,
+        "dataPrecision": null,
+        "dataScale": null,
+        "nullable": "Y"
+      }
+    },
+    "iddominiosuperior": {
+      "type": "Number",
+      "required": false,
+      "length": null,
+      "precision": 3,
+      "scale": 0,
+      "mysql": {
+        "columnName": "idDominioSuperior",
+        "dataType": "tinyint",
+        "dataLength": null,
+        "dataPrecision": 3,
+        "dataScale": 0,
+        "nullable": "Y"
+      }
+    }
+  }
+}
