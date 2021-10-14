@@ -1,0 +1,18 @@
+<div class="br-mainpanel">
+    <div class="pd-x-20 pd-sm-x-30 pd-t-20 pd-sm-t-30">
+        <h4 class="tx-gray-800 mg-b-5">Welcome!</h4>
+    </div>
+
+    <div class="br-pagebody pd-x-20 pd-sm-x-30">
+        <div class="row">
+            <p-tree [value]="data" layout="vertical" [filter]="true" filterMode="strict" [style]="{'width':'100%'}">
+                <ng-template let-node pTemplate="default">
+                    <span *ngIf="node.children.length == 0"
+                          style="font-weight: bolder; color: darkturquoise;">{{node.label}}</span>
+                    <span *ngIf="node.children.length != 0"
+                          style="font-weight: bold; color: blueviolet;">{{node.label}}</span>
+                </ng-template>
+            </p-tree>
+        </div>
+    </div>
+</div>

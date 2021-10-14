@@ -1,0 +1,163 @@
+<div [@routerTransition]>
+        <div class="br-mainpanel">
+            <div class="pd-x-20 pd-sm-x-30 pd-t-20 pd-sm-t-30">
+                <h4 class="tx-gray-800 mg-b-5">Layers</h4>
+            </div>
+    
+            <div class="br-pagebody pd-x-20 pd-sm-x-30">
+                <div class="row row-sm">
+                    <div class="col-lg-6">
+                        <div class="card card-default mb-3">
+                            <div class="card-header">
+                                <div>
+                                    <a>
+                                        <strong style="text-decoration: none;color: #333;">Layer administration</strong>
+                                        <div class='pull-left'>
+                                        </div>
+                                    </a>
+                                    <button pButton class="ui-button-rounded float-right" label="Add Layer"
+                                        icon="fas fa-plus" data-toggle="modal" data-target="#modalAddLayer">
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p-table #dt [columns]="cols" [value]="layers" selectionMode="single"
+                                    [(selection)]="selectedLayer" [paginator]="true" [rows]="12">
+                                    <ng-template pTemplate="header" let-columns>
+                                        <tr>
+                                            <th *ngFor="let col of columns">
+                                                {{col.header}}
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                                <input *ngSwitchCase="'name'" pInputText type="text"
+                                                    (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"
+                                                    style="width:100%">
+                                            </th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-layer let-columns="columns">
+                                        <tr [pSelectableRow]="layer">
+                                            <td *ngFor="let col of columns">
+                                                {{layer[col.field]}}                                            
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                            <div class="card-footer">
+                                <div class="float-right">
+                                    <button *ngIf="!selectedLayer"
+                                        disabled
+                                        pButton
+                                        label="Edit"
+                                        icon="fas fa-pencil-alt"
+                                        class="ui-button-warning ui-button-raised ui-button-rounded"
+                                    >   
+                                    </button>
+                                    <button *ngIf="selectedLayer"
+                                            pButton
+                                            label="Edit"
+                                            icon="fas fa-pencil-alt"
+                                            class="ui-button-warning ui-button-raised ui-button-rounded"
+                                            data-target="#modalEditLayer" data-toggle="modal"
+                                    >   
+                                    </button>
+                                    <button *ngIf="!selectedLayer"
+                                        disabled
+                                        pButton
+                                        label="Delete"
+                                        icon="fas fa-times"
+                                        class="ui-button-danger ui-button-raised ui-button-rounded"
+                                    >   
+                                    </button>
+                                    <button *ngIf="selectedLayer"
+                                            pButton
+                                            label="Delete"
+                                            icon="fas fa-times"
+                                            class="ui-button-danger ui-button-raised ui-button-rounded"
+                                            (click)="deleteLayer()"
+                                    >   
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ============================================================== -->
+    <!-- MODAL AGREGAR -->
+    <!-- ============================================================== -->
+    <div class="modal fade" id="modalAddLayer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Layer</h5>
+                    <i class="fas fa-layer-group" style="margin-left: 2%"></i>                
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeAdd>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form name="form"
+                    (ngSubmit)="f.form.valid 
+                    && model.name
+                    && addLayer(f);"
+                    #f="ngForm" novalidate>
+                    <div class="modal-body">
+                        <div class="form-group required">
+                            <label class="control-label" for="name">Name:</label>
+                            <input type="text" class="form-control" name="name" [(ngModel)]="model.name"
+                                #name="ngModel" autocomplete="off" required />
+                            <p-message *ngIf="f.submitted && !model.name" severity="error" text="Required field."></p-message>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button pButton 
+                                class="ui-button-rounded ui-button-success" 
+                                label="Submit" 
+                                icon="fas fa-check" 
+                                type="submit"
+                        >
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ============================================================== -->
+    <!-- MODAL EDITAR -->
+    <!-- ============================================================== -->
+    <div class="modal fade" id="modalEditLayer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="selectedLayer">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Layer</h5>
+                    <i class="fas fa-layer-group" style="margin-left: 2%"></i>                
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeEdit>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form name="form" (ngSubmit)="f.form.valid 
+                && selectedLayer.name && editLayer(f);" #f="ngForm" novalidate>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nombreLayer">Name:</label>
+                            <input type="text" class="form-control" name="nameLayer" [(ngModel)]="selectedLayer.name"
+                                #nameLayer="ngModel" autocomplete="off" required />
+                            <p-message *ngIf="f.submitted && !selectedLayer.name" severity="error" text="Required field."></p-message>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button pButton class="ui-button-rounded ui-button-success" label="Submit" icon="fas fa-check" type="submit">
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
