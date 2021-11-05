@@ -1,4 +1,4 @@
-# Tools for the UNComa project 04/F009 "Reuso de Software orientado a Dominios - Parte II" part of the program "Desarrollo de Software Basado en Reuso - Parte II."
+# Tools for SPL development methodology based on domain hierarchy
 
 In this project we show tools developed for our SPL development methodology.
 
